@@ -19,10 +19,12 @@ rate_limiter = InMemoryRateLimiter(
 )
 
 # --- MODEL SETUP ---
-# Pass the rate limiter and set max_retries
+# Explicit base_url and keep_alive to maintain stable local connection on Windows
 llm = ChatOllama(
     model="llama3.1", 
-    temperature=0
+    base_url="http://127.0.0.1:11434",
+    temperature=0,
+    keep_alive="10m"
 )
 
 
