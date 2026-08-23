@@ -12,6 +12,10 @@ The system features a polished, responsive user interface built using **Streamli
 
 ## 🏗️ System Architecture
 
+<p align="center">
+  <img src="./architecture_graph.svg" alt="ResearchMind Flow Topology" width="85%">
+</p>
+
 ResearchMind uses a decentralized, cooperative multi-agent architecture where agents communicate and pass state between execution stages:
 
 ```mermaid

@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 1020" width="100%" height="100%">
+  <defs>
+    <!-- Background Grid -->
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#14211a" stroke-width="1" stroke-opacity="0.5" />
+    </pattern>
+
+    <!-- Top & Center Glow -->
+    <radialGradient id="greenGlow" cx="50%" cy="10%" r="60%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#050807" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#111c16" />
+      <stop offset="100%" stop-color="#080e0b" />
+    </linearGradient>
+
+    <linearGradient id="toolGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0e1726" />
+      <stop offset="100%" stop-color="#070b13" />
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+    <marker id="arrCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrPurple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#c084fc" />
+    </marker>
+    <marker id="arrAmber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#fbbf24" />
+    </marker>
+    <marker id="arrGray" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <style>
+    text {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      user-select: none;
+    }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    /* Flowing Laser Effect */
+    @keyframes laserFlow {
+      0% { stroke-dashoffset: 36; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes pulseNode {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    .flow-green {
+      stroke-dasharray: 6 6;
+      animation: laserFlow 1.4s linear infinite;
+    }
+    .flow-cyan {
+      stroke-dasharray: 6 6;
+      animation: laserFlow 1.4s linear infinite;
+    }
+    .flow-purple {
+      stroke-dasharray: 6 6;
+      animation: laserFlow 1.4s linear infinite;
+    }
+
+    .live-dot {
+      animation: pulseNode 2s infinite ease-in-out;
+    }
+  </style>
+
+  <!-- Background -->
+  <rect width="920" height="1020" fill="#060907" />
+  <rect width="920" height="1020" fill="url(#grid)" />
+  <rect width="920" height="400" fill="url(#greenGlow)" />
+
+  <!-- ==================== HEADER ==================== -->
+  <g transform="translate(40, 40)">
+    <text x="0" y="0" class="mono" font-size="11" font-weight="700" fill="#10b981" letter-spacing="1.5">RESEARCHMIND EXECUTION GRAPH</text>
+    <line x1="280" y1="-4" x2="840" y2="-4" stroke="#16241d" stroke-width="1" />
+    <text x="0" y="30" font-size="20" font-weight="700" fill="#ffffff">Step-by-Step Multi-Agent Topology &amp; Tool Invocations</text>
+  </g>
+
+  <!-- ==================== 1. USER INPUT (NODE) ==================== -->
+  <g transform="translate(310, 100)">
+    <rect width="300" height="54" rx="27" fill="url(#nodeGrad)" stroke="#10b981" stroke-width="1.5" />
+    <circle cx="28" cy="27" r="12" fill="#064e3b" />
+    <text x="28" y="32" font-size="13" text-anchor="middle">👤</text>
+    <text x="52" y="27" font-size="13" font-weight="700" fill="#ffffff">User Input</text>
+    <text x="52" y="42" class="mono" font-size="11" fill="#34d399">topic: "Quantum AI 2026"</text>
+  </g>
+
+  <!-- Edge: User -> Streamlit -->
+  <path d="M 460 154 L 460 196" fill="none" stroke="#10b981" stroke-width="2" class="flow-green" marker-end="url(#arrGreen)" />
+  <text x="470" y="180" class="mono" font-size="10.5" fill="#6ee7b7">Enter Topic</text>
+
+  <!-- ==================== 2. STREAMLIT UI (NODE) ==================== -->
+  <g transform="translate(310, 198)">
+    <rect width="300" height="58" rx="10" fill="url(#nodeGrad)" stroke="#1e3a2b" stroke-width="1.5" />
+    <rect x="0" y="12" width="3" height="34" rx="1.5" fill="#10b981" />
+    <text x="24" y="27" font-size="14" font-weight="700" fill="#ffffff">Streamlit UI / CLI Runner</text>
+    <text x="24" y="45" class="mono" font-size="11" fill="#94a3b8">app.py / pipeline.py</text>
+  </g>
+
+  <!-- Edge: Streamlit -> Search Agent -->
+  <path d="M 460 256 L 460 300" fill="none" stroke="#38bdf8" stroke-width="2" class="flow-cyan" marker-end="url(#arrCyan)" />
+  <text x="470" y="284" class="mono" font-size="10.5" fill="#38bdf8">Query Dispatch</text>
+
+  <!-- ==================== 3. SEARCH AGENT + TOOL CALL ==================== -->
+  <!-- Search Agent Node -->
+  <g transform="translate(290, 302)">
+    <rect width="340" height="74" rx="12" fill="url(#nodeGrad)" stroke="#0284c7" stroke-width="1.5" />
+    <rect x="0" y="15" width="3" height="44" rx="1.5" fill="#38bdf8" />
+    <circle cx="24" cy="28" r="9" fill="#0d233a" stroke="#0284c7" />
+    <text x="24" y="32" class="mono" font-size="10" font-weight="700" fill="#38bdf8" text-anchor="middle">1</text>
+    <text x="42" y="28" font-size="14" font-weight="700" fill="#ffffff">1. Search Agent (ReAct)</text>
+    <text x="42" y="47" class="mono" font-size="11" fill="#38bdf8">tavily_search_tool()</text>
+    <text x="42" y="62" font-size="11" fill="#94a3b8">Finds top 5 relevant web sources</text>
+  </g>
+
+  <!-- Tool Outgoing (Search -> Tavily) -->
+  <path d="M 630 330 L 710 330" fill="none" stroke="#38bdf8" stroke-width="1.5" class="flow-cyan" marker-end="url(#arrCyan)" />
+  <text x="670" y="322" class="mono" font-size="9.5" fill="#38bdf8" text-anchor="middle">Web Search</text>
+
+  <!-- Tavily Tool Node (Right) -->
+  <g transform="translate(712, 304)">
+    <rect width="170" height="70" rx="10" fill="url(#toolGrad)" stroke="#0369a1" stroke-width="1" />
+    <text x="14" y="26" font-size="12" font-weight="700" fill="#38bdf8">🌐 Tavily Search API</text>
+    <text x="14" y="44" class="mono" font-size="10" fill="#94a3b8">query expansion</text>
+    <text x="14" y="58" class="mono" font-size="10" fill="#94a3b8">k=5 ranked URLs</text>
+  </g>
+
+  <!-- Tool Return (Tavily -> Search) -->
+  <path d="M 710 354 L 630 354" fill="none" stroke="#38bdf8" stroke-dasharray="3 3" stroke-width="1.5" marker-end="url(#arrCyan)" />
+  <text x="670" y="367" class="mono" font-size="9.5" fill="#64748b" text-anchor="middle">Results</text>
+
+  <!-- Edge: Search Agent -> Reader Agent -->
+  <path d="M 460 376 L 460 440" fill="none" stroke="#c084fc" stroke-width="2" class="flow-purple" marker-end="url(#arrPurple)" />
+  <text x="470" y="414" class="mono" font-size="10.5" fill="#c084fc">Top URLs &amp; Snippets</text>
+
+  <!-- ==================== 4. READER AGENT + TOOL CALL ==================== -->
+  <!-- Reader Agent Node -->
+  <g transform="translate(290, 442)">
+    <rect width="340" height="74" rx="12" fill="url(#nodeGrad)" stroke="#7c3aed" stroke-width="1.5" />
+    <rect x="0" y="15" width="3" height="44" rx="1.5" fill="#c084fc" />
+    <circle cx="24" cy="28" r="9" fill="#24123b" stroke="#7c3aed" />
+    <text x="24" y="32" class="mono" font-size="10" font-weight="700" fill="#c084fc" text-anchor="middle">2</text>
+    <text x="42" y="28" font-size="14" font-weight="700" fill="#ffffff">2. Reader Agent (ReAct)</text>
+    <text x="42" y="47" class="mono" font-size="11" fill="#c084fc">scrape_web_page_tool()</text>
+    <text x="42" y="62" font-size="11" fill="#94a3b8">Deep parses most relevant article</text>
+  </g>
+
+  <!-- Tool Outgoing (Reader -> Scraper) -->
+  <path d="M 630 470 L 710 470" fill="none" stroke="#c084fc" stroke-width="1.5" class="flow-purple" marker-end="url(#arrPurple)" />
+  <text x="670" y="462" class="mono" font-size="9.5" fill="#c084fc" text-anchor="middle">Scraping</text>
+
+  <!-- Scraper Tool Node (Right) -->
+  <g transform="translate(712, 444)">
+    <rect width="170" height="70" rx="10" fill="url(#toolGrad)" stroke="#6b21a8" stroke-width="1" />
+    <text x="14" y="26" font-size="12" font-weight="700" fill="#c084fc">🕷️ BS4 Scraper</text>
+    <text x="14" y="44" class="mono" font-size="10" fill="#94a3b8">HTML DOM cleaner</text>
+    <text x="14" y="58" class="mono" font-size="10" fill="#94a3b8">extracts 3k chars</text>
+  </g>
+
+  <!-- Tool Return (Scraper -> Reader) -->
+  <path d="M 710 494 L 630 494" fill="none" stroke="#c084fc" stroke-dasharray="3 3" stroke-width="1.5" marker-end="url(#arrPurple)" />
+  <text x="670" y="507" class="mono" font-size="9.5" fill="#64748b" text-anchor="middle">Clean Text</text>
+
+  <!-- Edge: Reader Agent -> Writer Chain -->
+  <path d="M 460 516 L 460 580" fill="none" stroke="#fbbf24" stroke-width="2" class="flow-green" marker-end="url(#arrAmber)" />
+  <text x="470" y="554" class="mono" font-size="10.5" fill="#fbbf24">Scraped Context</text>
+
+  <!-- ==================== 5. WRITER CHAIN (NODE) ==================== -->
+  <g transform="translate(290, 582)">
+    <rect width="340" height="74" rx="12" fill="url(#nodeGrad)" stroke="#d97706" stroke-width="1.5" />
+    <rect x="0" y="15" width="3" height="44" rx="1.5" fill="#fbbf24" />
+    <circle cx="24" cy="28" r="9" fill="#361f06" stroke="#d97706" />
+    <text x="24" y="32" class="mono" font-size="10" font-weight="700" fill="#fbbf24" text-anchor="middle">3</text>
+    <text x="42" y="28" font-size="14" font-weight="700" fill="#ffffff">3. Writer Chain (LLM Chain)</text>
+    <text x="42" y="47" class="mono" font-size="11" fill="#fbbf24">llama3.1_local_synthesis</text>
+    <text x="42" y="62" font-size="11" fill="#94a3b8">Generates structured Markdown report</text>
+  </g>
+
+  <!-- Edge: Writer -> Critic -->
+  <path d="M 460 656 L 460 720" fill="none" stroke="#10b981" stroke-width="2" class="flow-green" marker-end="url(#arrGreen)" />
+  <text x="470" y="694" class="mono" font-size="10.5" fill="#34d399">Draft Markdown</text>
+
+  <!-- ==================== 6. CRITIC CHAIN (NODE) ==================== -->
+  <g transform="translate(290, 722)">
+    <rect width="340" height="74" rx="12" fill="url(#nodeGrad)" stroke="#059669" stroke-width="1.5" />
+    <rect x="0" y="15" width="3" height="44" rx="1.5" fill="#34d399" />
+    <circle cx="24" cy="28" r="9" fill="#0a2a1d" stroke="#059669" />
+    <text x="24" y="32" class="mono" font-size="10" font-weight="700" fill="#34d399" text-anchor="middle">4</text>
+    <text x="42" y="28" font-size="14" font-weight="700" fill="#ffffff">4. Critic Chain (LLM Chain)</text>
+    <text x="42" y="47" class="mono" font-size="11" fill="#34d399">quality_evaluation_score</text>
+    <text x="42" y="62" font-size="11" fill="#94a3b8">Audits accuracy, depth &amp; assigns score</text>
+  </g>
+
+  <!-- Feedback Loop Back to Streamlit (Left Arc) -->
+  <path d="M 290 759 C 140 759 140 227 308 227" fill="none" stroke="#10b981" stroke-dasharray="4 4" stroke-width="1.5" marker-end="url(#arrGreen)" />
+  <text x="110" y="490" class="mono" font-size="10" fill="#10b981" text-anchor="middle" transform="rotate(-90 110 490)">Evaluated Score &amp; Feedback</text>
+
+  <!-- Edge: Critic -> Output -->
+  <path d="M 460 796 L 460 860" fill="none" stroke="#10b981" stroke-width="2" class="flow-green" marker-end="url(#arrGreen)" />
+  <text x="470" y="834" class="mono" font-size="10.5" fill="#6ee7b7">Polished Output</text>
+
+  <!-- ==================== 7. FINAL OUTPUT (NODE) ==================== -->
+  <g transform="translate(290, 862)">
+    <rect width="340" height="60" rx="30" fill="url(#nodeGrad)" stroke="#10b981" stroke-width="2" />
+    <circle cx="30" cy="30" r="14" fill="#064e3b" />
+    <text x="30" y="36" font-size="15" text-anchor="middle">📄</text>
+    <text x="56" y="28" font-size="13" font-weight="700" fill="#ffffff">Downloadable Markdown Report</text>
+    <text x="56" y="45" class="mono" font-size="11" fill="#34d399">Report + Citations + Critic Score</text>
+  </g>
+
+  <!-- ==================== FOOTER ==================== -->
+  <g transform="translate(40, 970)">
+    <line x1="0" y1="0" x2="840" y2="0" stroke="#16241d" stroke-width="1" />
+    <text x="0" y="24" class="mono" font-size="11" fill="#475569">
+      Stateful LangGraph Transitions · Ollama Local Inference · Zero API Token Fees
+    </text>
+    <text x="840" y="24" class="mono" font-size="11" fill="#475569" text-anchor="end">
+      $0 · MIT License
+    </text>
+  </g>
+
+</svg>
