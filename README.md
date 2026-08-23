@@ -1,5 +1,9 @@
 # ResearchMind: Multi-Agent AI Research System
 
+<p align="center">
+  <img src="./architecture.svg" alt="ResearchMind Architecture" width="100%">
+</p>
+
 ResearchMind is an advanced, local-first multi-agent AI application designed to conduct deep web research on any given topic. By orchestrating a network of specialized AI agents built on **LangGraph** and **LangChain**, ResearchMind searches the web, scrapes deep resources, compiles a comprehensive markdown report, and subjects it to a rigorous critical review—all powered locally and privately using **Ollama** and **Llama 3.1**.
 
 The system features a polished, responsive user interface built using **Streamlit** that visually demonstrates the step-by-step pipeline execution in real time.
