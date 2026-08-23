@@ -250,7 +250,7 @@
     agents.py · pipeline.py · tools.py · app.py — pre-wired multi-agent system ready out of the box.
   </text>
   
-  <text x="1164" y="440" class="mono" font-size="11" fill="#475569" text-anchor="end">
-    Local-First · MIT
+  <text x="1164" y="440" class="mono" font-size="11" font-weight="600" fill="#10b981" text-anchor="end">
+    Built by Vansh Sharma
   </text>
 </svg>
