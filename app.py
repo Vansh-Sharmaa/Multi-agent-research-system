@@ -177,7 +177,7 @@ html, body, [class*="css"] {
 .agent-card.running {
     border-color: #38bdf8;
     background: linear-gradient(135deg, #0d131f 0%, #082f49 100%);
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.2);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
 }
 .agent-card.done {
     border-color: #10b981;
@@ -275,9 +275,14 @@ html, body, [class*="css"] {
 """, unsafe_allow_html=True)
 
 # ── Session State Init ────────────────────────────────────────────────────────
-for key in ("results", "running", "done"):
+for key in ("results", "current_stage", "running", "done"):
     if key not in st.session_state:
-        st.session_state[key] = {} if key == "results" else False
+        if key == "results":
+            st.session_state[key] = {}
+        elif key == "current_stage":
+            st.session_state[key] = None
+        else:
+            st.session_state[key] = False
 
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -296,18 +301,16 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Helper: Render an Agent Stage Card ────────────────────────────────────────
-def render_agent_card(icon: str, name: str, role: str, status: str):
+# ── Helper: Return HTML String for an Agent Stage Card ────────────────────────
+def get_card_html(icon: str, name: str, role: str, status: str):
     status_map = {
         "waiting": ("STANDBY", "badge-waiting"),
         "running": ("● ACTIVE", "badge-running"),
         "done":    ("✓ VERIFIED", "badge-done"),
     }
     label, badge_cls = status_map.get(status, ("STANDBY", "badge-waiting"))
-    card_cls = status
-    
-    st.markdown(f"""
-    <div class="agent-card {card_cls}">
+    return f"""
+    <div class="agent-card {status}">
         <div class="agent-header">
             <div class="agent-icon">{icon}</div>
             <div class="agent-info">
@@ -317,7 +320,7 @@ def render_agent_card(icon: str, name: str, role: str, status: str):
             <div class="agent-badge {badge_cls}">{label}</div>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """
 
 # ── Main 2-Column Layout ──────────────────────────────────────────────────────
 col_input, col_pipeline = st.columns([5, 4], gap="large")
@@ -345,24 +348,30 @@ with col_input:
 with col_pipeline:
     st.markdown("<h3 style='font-size:1.2rem;font-weight:700;margin-bottom:0.8rem;color:#f8fafc;'>2. Live Agent Pipeline</h3>", unsafe_allow_html=True)
     
-    r = st.session_state.results
-    
-    def get_status(step):
-        if not r and not st.session_state.running:
-            return "waiting"
-        steps = ["search", "reader", "writer", "critic"]
-        if step in r:
-            return "done"
-        if st.session_state.running:
-            for k in steps:
-                if k not in r:
-                    return "running" if k == step else "waiting"
-        return "waiting"
+    # 4 Dynamic Streamlit Placeholders for Instant Live Updates
+    p_search = st.empty()
+    p_reader = st.empty()
+    p_writer = st.empty()
+    p_critic = st.empty()
 
-    render_agent_card("🔍", "Search Agent (ReAct)", "Queries Tavily Search & ranks top 5 URLs", get_status("search"))
-    render_agent_card("📖", "Reader Agent (BS4)", "Scrapes clean context & extracts article text", get_status("reader"))
-    render_agent_card("✍️", "Writer Chain (LLM)", "Synthesizes data into structured Markdown", get_status("writer"))
-    render_agent_card("🎯", "Critic Chain (Audit)", "Fact-checks depth & calculates quality score", get_status("critic"))
+    def update_pipeline_ui(active_step=None):
+        r = st.session_state.results
+        steps = ["search", "reader", "writer", "critic"]
+        
+        def status_for(s_name):
+            if s_name in r:
+                return "done"
+            if active_step == s_name:
+                return "running"
+            return "waiting"
+
+        p_search.markdown(get_card_html("🔍", "Search Agent (ReAct)", "Queries Tavily Search & ranks top 5 URLs", status_for("search")), unsafe_allow_html=True)
+        p_reader.markdown(get_card_html("📖", "Reader Agent (BS4)", "Scrapes clean context & extracts article text", status_for("reader")), unsafe_allow_html=True)
+        p_writer.markdown(get_card_html("✍️", "Writer Chain (LLM)", "Synthesizes data into structured Markdown", status_for("writer")), unsafe_allow_html=True)
+        p_critic.markdown(get_card_html("🎯", "Critic Chain (Audit)", "Fact-checks depth & calculates quality score", status_for("critic")), unsafe_allow_html=True)
+
+    # Initial Render of the cards
+    update_pipeline_ui(st.session_state.current_stage)
 
 # ── Pipeline Trigger ──────────────────────────────────────────────────────────
 if run_btn:
@@ -372,6 +381,7 @@ if run_btn:
         st.session_state.results = {}
         st.session_state.running = True
         st.session_state.done = False
+        st.session_state.current_stage = "search"
         st.rerun()
 
 if st.session_state.running and not st.session_state.done:
@@ -380,6 +390,8 @@ if st.session_state.running and not st.session_state.done:
 
     try:
         # Step 1: Search
+        st.session_state.current_stage = "search"
+        update_pipeline_ui("search")
         with st.spinner("🔍 Search Agent is querying the web..."):
             search_agent = build_search_agent()
             sr = execute_safely(search_agent, {
@@ -389,6 +401,8 @@ if st.session_state.running and not st.session_state.done:
             st.session_state.results = dict(results)
 
         # Step 2: Reader
+        st.session_state.current_stage = "reader"
+        update_pipeline_ui("reader")
         with st.spinner("📄 Reader Agent is parsing article text..."):
             reader_agent = build_reader_agent()
             rr = execute_safely(reader_agent, {
@@ -402,6 +416,8 @@ if st.session_state.running and not st.session_state.done:
             st.session_state.results = dict(results)
 
         # Step 3: Writer
+        st.session_state.current_stage = "writer"
+        update_pipeline_ui("writer")
         with st.spinner("✍️ Writer Chain is drafting the report..."):
             research_combined = (
                 f"SEARCH RESULTS:\n{results['search']}\n\n"
@@ -414,6 +430,8 @@ if st.session_state.running and not st.session_state.done:
             st.session_state.results = dict(results)
 
         # Step 4: Critic
+        st.session_state.current_stage = "critic"
+        update_pipeline_ui("critic")
         with st.spinner("🎯 Critic Chain is evaluating accuracy..."):
             results["critic"] = execute_safely(critic_chain, {
                 "report": results["writer"]
@@ -423,9 +441,11 @@ if st.session_state.running and not st.session_state.done:
     except Exception as e:
         st.error(f"Pipeline error: {e}")
         st.session_state.running = False
+        st.session_state.current_stage = None
         st.stop()
 
     st.session_state.running = False
+    st.session_state.current_stage = None
     st.session_state.done = True
     st.rerun()
 
