@@ -1,15 +1,8 @@
 import streamlit as st
 import time
 from agents import build_reader_agent, build_search_agent, writer_chain, critic_chain
-from tenacity import retry, wait_exponential, stop_after_attempt, retry_if_exception_type
-from langchain_google_genai.chat_models import ChatGoogleGenerativeAIError
 
 # ── Safe Execution Wrapper ────────────────────────────────────────────────────
-@retry(
-    wait=wait_exponential(multiplier=2, min=10, max=60), 
-    stop=stop_after_attempt(5),
-    retry=retry_if_exception_type(ChatGoogleGenerativeAIError)
-)
 def execute_safely(agent_or_chain, inputs):
     return agent_or_chain.invoke(inputs)
 
@@ -421,7 +414,7 @@ if st.session_state.running and not st.session_state.done:
 
     try:
         # ── Step 1: Search ──
-        with st.spinner("🔍  Search Agent is working... (Will auto-pause if API limits hit)"):
+        with st.spinner("🔍  Search Agent is researching the web..."):
             search_agent = build_search_agent()
             sr = execute_safely(search_agent, {
                 "messages": [("user", f"Find recent, reliable and detailed information about: {topic_val}")]
@@ -430,7 +423,6 @@ if st.session_state.running and not st.session_state.done:
             st.session_state.results = dict(results)
         
         # ── Step 2: Reader ──
-        time.sleep(5) # Base breather between agents
         with st.spinner("📄  Reader Agent is scraping top resources..."):
             reader_agent = build_reader_agent()
             rr = execute_safely(reader_agent, {
@@ -444,7 +436,6 @@ if st.session_state.running and not st.session_state.done:
             st.session_state.results = dict(results)
 
         # ── Step 3: Writer ──
-        time.sleep(5) 
         with st.spinner("✍️  Writer is drafting the report..."):
             research_combined = (
                 f"SEARCH RESULTS:\n{results['search']}\n\n"
@@ -457,7 +448,6 @@ if st.session_state.running and not st.session_state.done:
             st.session_state.results = dict(results)
 
         # ── Step 4: Critic ──
-        time.sleep(5) 
         with st.spinner("🧐  Critic is reviewing the report..."):
             results["critic"] = execute_safely(critic_chain, {
                 "report": results["writer"]
