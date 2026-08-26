@@ -1,0 +1,258 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="100%" height="100%">
+  <defs>
+    <!-- Background Grid Pattern -->
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#14211a" stroke-width="1" stroke-opacity="0.6" />
+    </pattern>
+
+    <!-- Top Glow Gradient -->
+    <radialGradient id="topGlow" cx="20%" cy="0%" r="55%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#050807" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0e1713" />
+      <stop offset="100%" stop-color="#070c0a" />
+    </linearGradient>
+  </defs>
+
+  <style>
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    }
+    .sans {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Laser flow animation along data wires */
+    @keyframes laserPass {
+      0% { stroke-dashoffset: 32; }
+      100% { stroke-dashoffset: 0; }
+    }
+
+    /* Glowing radar pulse on connecting dots */
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.3; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Sequential card border pulse across the 4 stages */
+    @keyframes cardActive1 {
+      0%, 100% { stroke: #182820; }
+      15% { stroke: #38bdf8; }
+      30%, 90% { stroke: #182820; }
+    }
+    @keyframes cardActive2 {
+      0%, 25%, 100% { stroke: #182820; }
+      40% { stroke: #c084fc; }
+      55%, 90% { stroke: #182820; }
+    }
+    @keyframes cardActive3 {
+      0%, 50%, 100% { stroke: #182820; }
+      65% { stroke: #fbbf24; }
+      80%, 90% { stroke: #182820; }
+    }
+    @keyframes cardActive4 {
+      0%, 75%, 100% { stroke: #182820; }
+      90% { stroke: #34d399; }
+      98% { stroke: #182820; }
+    }
+
+    .laser-wire {
+      stroke-dasharray: 6 5;
+      animation: laserPass 1.2s linear infinite;
+    }
+
+    .pulse-dot {
+      animation: dotPulse 1.8s infinite ease-in-out;
+      transform-origin: center;
+    }
+
+    .c-anim-1 { animation: cardActive1 8s infinite ease-in-out; }
+    .c-anim-2 { animation: cardActive2 8s infinite ease-in-out; }
+    .c-anim-3 { animation: cardActive3 8s infinite ease-in-out; }
+    .c-anim-4 { animation: cardActive4 8s infinite ease-in-out; }
+  </style>
+
+  <!-- Dark Canvas Base -->
+  <rect width="1200" height="480" fill="#060907" />
+  <rect width="1200" height="480" fill="url(#grid)" />
+  <rect width="1200" height="280" fill="url(#topGlow)" />
+
+  <!-- ==================== HEADER SECTION ==================== -->
+  <g transform="translate(36, 42)">
+    <!-- Small Category Label -->
+    <text x="0" y="0" class="mono" font-size="11" font-weight="700" fill="#10b981" letter-spacing="1.5">AUTONOMOUS LOCAL MULTI-AGENT PIPELINE</text>
+    
+    <!-- Top Divider Line -->
+    <line x1="330" y1="-4" x2="1140" y2="-4" stroke="#16241d" stroke-width="1" />
+
+    <!-- Big Headline -->
+    <text x="0" y="32" class="sans" font-size="22" font-weight="700" fill="#ffffff">
+      Enter topic <tspan fill="#64748b">→</tspan> 4 Intellecta agents search, scrape, write &amp; critique. <tspan fill="#10b981">100% Private.</tspan>
+    </text>
+  </g>
+
+  <!-- ==================== CONNECTING ANIMATED WIRES ==================== -->
+  <!-- Wire 1 to 2 -->
+  <line x1="296" y1="225" x2="336" y2="225" stroke="#38bdf8" stroke-width="2" class="laser-wire" />
+  <circle cx="316" cy="225" r="4" fill="#38bdf8" class="pulse-dot" />
+
+  <!-- Wire 2 to 3 -->
+  <line x1="596" y1="225" x2="636" y2="225" stroke="#c084fc" stroke-width="2" class="laser-wire" />
+  <circle cx="616" cy="225" r="4" fill="#c084fc" class="pulse-dot" />
+
+  <!-- Wire 3 to 4 -->
+  <line x1="896" y1="225" x2="936" y2="225" stroke="#fbbf24" stroke-width="2" class="laser-wire" />
+  <circle cx="916" cy="225" r="4" fill="#fbbf24" class="pulse-dot" />
+
+  <!-- ==================== 4 MULTI-AGENT CARDS ==================== -->
+
+  <!-- CARD 1: SEARCH AGENT -->
+  <g transform="translate(36, 115)">
+    <rect width="260" height="225" rx="10" fill="url(#cardGrad)" stroke="#182820" stroke-width="1.5" class="c-anim-1" />
+
+    <!-- Accent bar -->
+    <rect x="0" y="24" width="3" height="175" rx="1.5" fill="#38bdf8" />
+
+    <!-- Step number badge -->
+    <circle cx="32" cy="34" r="11" fill="#0d233a" stroke="#0284c7" stroke-width="1" />
+    <text x="32" y="38" class="mono" font-size="11" font-weight="700" fill="#38bdf8" text-anchor="middle">1</text>
+
+    <!-- Header -->
+    <text x="54" y="39" class="sans" font-size="16" font-weight="700" fill="#38bdf8">🔍 Search Agent</text>
+
+    <!-- Code Line -->
+    <g transform="translate(18, 68)">
+      <text x="0" y="14" class="mono" font-size="12" font-weight="600" fill="#38bdf8">tavily.search(query, k=5)</text>
+    </g>
+
+    <!-- Bullet description -->
+    <text x="18" y="118" class="sans" font-size="11.5" fill="#94a3b8" line-height="1.5">
+      <tspan x="18" dy="0">• ReAct query expansion</tspan>
+      <tspan x="18" dy="20">• Ranks 5 authoritative sources</tspan>
+      <tspan x="18" dy="20">• Extracts summary previews</tspan>
+      <tspan x="18" dy="20">• Passes URLs to state dictionary</tspan>
+    </text>
+  </g>
+
+  <!-- CARD 2: READER AGENT -->
+  <g transform="translate(336, 115)">
+    <rect width="260" height="225" rx="10" fill="url(#cardGrad)" stroke="#182820" stroke-width="1.5" class="c-anim-2" />
+
+    <rect x="0" y="24" width="3" height="175" rx="1.5" fill="#c084fc" />
+
+    <circle cx="32" cy="34" r="11" fill="#24123b" stroke="#7c3aed" stroke-width="1" />
+    <text x="32" y="38" class="mono" font-size="11" font-weight="700" fill="#c084fc" text-anchor="middle">2</text>
+
+    <text x="54" y="39" class="sans" font-size="16" font-weight="700" fill="#c084fc">📖 Reader Agent</text>
+
+    <g transform="translate(18, 68)">
+      <text x="0" y="14" class="mono" font-size="12" font-weight="600" fill="#c084fc">bs4.scrape(top_url, 3k)</text>
+    </g>
+
+    <text x="18" y="118" class="sans" font-size="11.5" fill="#94a3b8" line-height="1.5">
+      <tspan x="18" dy="0">• Automated web scraping</tspan>
+      <tspan x="18" dy="20">• Strips ads, scripts &amp; clutter</tspan>
+      <tspan x="18" dy="20">• Extracts 3,000 char deep body</tspan>
+      <tspan x="18" dy="20">• Passes cleaned text context</tspan>
+    </text>
+  </g>
+
+  <!-- CARD 3: WRITER CHAIN -->
+  <g transform="translate(636, 115)">
+    <rect width="260" height="225" rx="10" fill="url(#cardGrad)" stroke="#182820" stroke-width="1.5" class="c-anim-3" />
+
+    <rect x="0" y="24" width="3" height="175" rx="1.5" fill="#fbbf24" />
+
+    <circle cx="32" cy="34" r="11" fill="#361f06" stroke="#d97706" stroke-width="1" />
+    <text x="32" y="38" class="mono" font-size="11" font-weight="700" fill="#fbbf24" text-anchor="middle">3</text>
+
+    <text x="54" y="39" class="sans" font-size="16" font-weight="700" fill="#fbbf24">✍️ Writer Chain</text>
+
+    <g transform="translate(18, 68)">
+      <text x="0" y="14" class="mono" font-size="12" font-weight="600" fill="#fbbf24">llama3.1.synthesize(ctx)</text>
+    </g>
+
+    <text x="18" y="118" class="sans" font-size="11.5" fill="#94a3b8" line-height="1.5">
+      <tspan x="18" dy="0">• Combines search + article data</tspan>
+      <tspan x="18" dy="20">• Outlines core takeaways</tspan>
+      <tspan x="18" dy="20">• Generates Markdown document</tspan>
+      <tspan x="18" dy="20">• Zero token fees (Ollama Local)</tspan>
+    </text>
+  </g>
+
+  <!-- CARD 4: CRITIC CHAIN -->
+  <g transform="translate(936, 115)">
+    <rect width="230" height="225" rx="10" fill="url(#cardGrad)" stroke="#182820" stroke-width="1.5" class="c-anim-4" />
+
+    <rect x="0" y="24" width="3" height="175" rx="1.5" fill="#10b981" />
+
+    <circle cx="32" cy="34" r="11" fill="#0a2a1d" stroke="#059669" stroke-width="1" />
+    <text x="32" y="38" class="mono" font-size="11" font-weight="700" fill="#10b981" text-anchor="middle">4</text>
+
+    <text x="54" y="39" class="sans" font-size="16" font-weight="700" fill="#10b981">🎯 Critic Chain</text>
+
+    <g transform="translate(18, 68)">
+      <text x="0" y="14" class="mono" font-size="12" font-weight="600" fill="#34d399">audit: score="8.5/10"</text>
+    </g>
+
+    <text x="18" y="118" class="sans" font-size="11.5" fill="#94a3b8" line-height="1.5">
+      <tspan x="18" dy="0">• Evaluates factual depth</tspan>
+      <tspan x="18" dy="20">• Scores report quality</tspan>
+      <tspan x="18" dy="20">• Lists strengths &amp; gaps</tspan>
+      <tspan x="18" dy="20">• Streamlit live download</tspan>
+    </text>
+  </g>
+
+  <!-- ==================== BOTTOM PILLS ==================== -->
+  <g transform="translate(36, 370)">
+    <!-- Pill 1: LangGraph -->
+    <g transform="translate(0, 0)">
+      <rect width="180" height="32" rx="16" fill="#0c1611" stroke="#1a2e22" />
+      <text x="16" y="20" class="mono" font-size="11" fill="#4ade80">✓</text>
+      <text x="32" y="20" class="sans" font-size="12" font-weight="600" fill="#e2e8f0">LangGraph State Loop</text>
+    </g>
+
+    <!-- Pill 2: Ollama Local -->
+    <g transform="translate(192, 0)">
+      <rect width="185" height="32" rx="16" fill="#0c1611" stroke="#1a2e22" />
+      <text x="16" y="20" class="mono" font-size="11" fill="#4ade80">✓</text>
+      <text x="32" y="20" class="sans" font-size="12" font-weight="600" fill="#e2e8f0">Ollama (Llama 3.1 8B)</text>
+    </g>
+
+    <!-- Pill 3: No API fees -->
+    <g transform="translate(389, 0)">
+      <rect width="130" height="32" rx="16" fill="#0c1611" stroke="#1a2e22" />
+      <text x="16" y="20" class="mono" font-size="11" fill="#4ade80">✕</text>
+      <text x="32" y="20" class="sans" font-size="12" font-weight="600" fill="#e2e8f0">no token fees</text>
+    </g>
+
+    <!-- Pill 4: 100% Private -->
+    <g transform="translate(531, 0)">
+      <rect width="135" height="32" rx="16" fill="#0c1611" stroke="#1a2e22" />
+      <text x="16" y="20" class="mono" font-size="11" fill="#4ade80">✕</text>
+      <text x="32" y="20" class="sans" font-size="12" font-weight="600" fill="#e2e8f0">no cloud leak</text>
+    </g>
+
+    <!-- Pill 5: Streamlit UI -->
+    <g transform="translate(678, 0)">
+      <rect width="155" height="32" rx="16" fill="#0c1611" stroke="#1a2e22" />
+      <text x="16" y="20" class="mono" font-size="11" fill="#4ade80">✓</text>
+      <text x="32" y="20" class="sans" font-size="12" font-weight="600" fill="#e2e8f0">Streamlit Dark UI</text>
+    </g>
+  </g>
+
+  <!-- Bottom Footnote & Author Badge -->
+  <text x="36" y="442" class="mono" font-size="11.5" fill="#64748b">
+    agents.py · pipeline.py · tools.py · app.py — pre-wired multi-agent system ready out of the box.
+  </text>
+  
+  <g transform="translate(980, 422)">
+    <rect width="184" height="30" rx="8" fill="#0d1f17" stroke="#10b981" stroke-width="1.5" />
+    <circle cx="16" cy="15" r="4.5" fill="#10b981" />
+    <text x="28" y="19.5" class="mono" font-size="12" font-weight="700" fill="#34d399">Built by Vansh Sharma</text>
+  </g>
+</svg>
